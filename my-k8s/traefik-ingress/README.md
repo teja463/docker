@@ -1,4 +1,4 @@
-# Running the demo application in local
+# How to run
 
 - We have used kind cluster for the deployment
 - Using traefik as the ingress controller. Install it via below commands, once you install this it will 
@@ -10,14 +10,10 @@ helm upgrade --install -n traefik --create-namespace traefik traefik/traefik --v
 - The LoadBalancer service will not have any public IP assinged to it since we are using kind cluster
 - Execute `cloud-provider-kind` in bash. If you don't have this then install it. After installation run the same command, it will assing a local IP to the load balancer public IP.
 - Add an entry in the /etc/hosts file with the External IP of the traefik controller and hostname as below. To find the External IP execute `kubectl get svc -n traefik`
-    - `172.18.0.6 kubernetes-course.devopsdirective.com`
-- Create namespaces `postgres` and `demo-app`
-- Execute the yml files in below order
-    1. `mw.yml` custom middleware for traefik ingress to strip out the URL so that /api/hello can be redirected to /hello back-end
-    1. `postgres.yml` creates postgress instance for our backend to connect to
-    1. `api.yml`
-    1. `api-route.yml`
-    1. `ui.yml`
-    1. `ui-route.yml`
-
-- Now you have all your pods, services, ingressroute up and running browse [UI](http://kubernetes-course.devopsdirective.com/) [backend-api](http://kubernetes-course.devopsdirective.com/api/hello)
+    - `172.18.0.6 myapp.com`
+- Create namespaces `my-ingress`
+- Run the files in order
+    1. `sts-home.yml`
+    1. `sts-about.yml`
+    1. `ingress.yml`
+- Now you have all your pods, services, ingressroute up and running browse [home](http://myapp.com) [about](http://myapp.com/about)

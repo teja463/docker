@@ -1,0 +1,37 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: about-strip
+  namespace: my-ingress
+spec:
+  stripPrefix:
+    forceSlash: false
+    prefixes:
+      - /about
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: nginx-routing
+  namespace: my-ingress
+spec:
+  entryPoints:
+    - web
+  routes:
+    - kind: Rule
+      match: Host(`myapp.com`) && PathPrefix(`/about`)
+      middlewares:
+        - name: about-strip
+      services:
+        - kind: Service
+          name: sts-about-svc
+          port: 80
+          scheme: http  
+    - kind: Rule
+      match: Host(`myapp.com`)
+      services:
+        - kind: Service
+          name: sts-home-svc
+          port: 80
+          scheme: http
+

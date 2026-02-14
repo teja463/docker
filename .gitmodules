@@ -1,6 +1,6 @@
 [submodule "docker-react-app"]
-	path = docker-react-app
+	path = docker/docker-react-app
 	url = https://github.com/teja463/docker-react-app
 [submodule "docker-java"]
-	path = docker-java
+	path = docker/docker-java
 	url = https://github.com/teja463/docker-java
